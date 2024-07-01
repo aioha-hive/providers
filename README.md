@@ -33,7 +33,7 @@ const App = () => {
 2. Use Aioha anywhere within `AiohaProvider` through `useAioha()`.
 
 ```tsx
-import { useAioha, AiohaModal } from '@aioha/react-provider'
+import { useAioha } from '@aioha/react-provider'
 
 export const AiohaPage = () => {
   const { aioha, user, provider, login, logout } = useAioha()
