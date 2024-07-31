@@ -7,20 +7,16 @@ export const AiohaContext = createContext<
       aioha: Aioha
       user?: string
       provider?: Providers
-      login: (provider: Providers, username: string, options: LoginOptions) => Promise<LoginResult>
-      logout: () => Promise<void>
     }
   | undefined
 >(undefined)
 
 export const AiohaProvider = ({ aioha, children }: { aioha: Aioha; children: ReactNode }) => {
-  const getUser = aioha.getCurrentUser
-  const getProv = aioha.getCurrentProvider
-  const [user, setUser] = useState<string | undefined>(getUser())
-  const [provider, setProvider] = useState<Providers | undefined>(getProv())
+  const [user, setUser] = useState<string | undefined>(aioha.getCurrentUser())
+  const [provider, setProvider] = useState<Providers | undefined>(aioha.getCurrentProvider())
   const update = () => {
-    setUser(getUser())
-    setProvider(getProv())
+    setUser(aioha.getCurrentUser())
+    setProvider(aioha.getCurrentProvider())
   }
   useEffect(() => {
     aioha.on('connect', update)
@@ -32,9 +28,7 @@ export const AiohaProvider = ({ aioha, children }: { aioha: Aioha; children: Rea
       value={{
         aioha,
         user,
-        provider,
-        login: aioha.login,
-        logout: aioha.logout // may be removed in the future, use aioha.login() and aioha.logout() instead
+        provider
       }}
     >
       {children}
