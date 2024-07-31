@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import { Aioha, Providers } from '@aioha/aioha'
 import { LoginOptions, LoginResult } from '@aioha/aioha/build/types'
 
@@ -14,31 +14,27 @@ export const AiohaContext = createContext<
 >(undefined)
 
 export const AiohaProvider = ({ aioha, children }: { aioha: Aioha; children: ReactNode }) => {
-  const [user, setUser] = useState<string | undefined>(aioha.getCurrentUser())
-  const [provider, setProvider] = useState<Providers | undefined>(aioha.getCurrentProvider())
-  const login = async (provider: Providers, username: string, options: LoginOptions): Promise<LoginResult> => {
-    const result = await aioha.login(provider, username, options)
-    if (result.success) {
-      setUser(aioha.getCurrentUser())
-      setProvider(aioha.getCurrentProvider())
-    }
-    return result
+  const getUser = aioha.getCurrentUser
+  const getProv = aioha.getCurrentProvider
+  const [user, setUser] = useState<string | undefined>(getUser())
+  const [provider, setProvider] = useState<Providers | undefined>(getProv())
+  const update = () => {
+    setUser(getUser())
+    setProvider(getProv())
   }
-  const logout = async (): Promise<void> => {
-    try {
-      await aioha.logout()
-    } catch {}
-    setUser(undefined)
-    setProvider(undefined)
-  }
+  useEffect(() => {
+    aioha.on('connect', update)
+    aioha.on('disconnect', update)
+    aioha.on('account_changed', update)
+  }, [])
   return (
     <AiohaContext.Provider
       value={{
         aioha,
         user,
         provider,
-        login,
-        logout
+        login: aioha.login,
+        logout: aioha.logout // may be removed in the future, use aioha.login() and aioha.logout() instead
       }}
     >
       {children}

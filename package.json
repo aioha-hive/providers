@@ -1,6 +1,6 @@
 {
   "name": "@aioha/react-provider",
-  "version": "1.0.3",
+  "version": "1.4.0",
   "description": "React provider for Aioha",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,13 +33,13 @@
     "README.md"
   ],
   "devDependencies": {
-    "@aioha/aioha": "^1.3.11",
+    "@aioha/aioha": "^1.4.0",
     "@types/react": "^18.3.3",
     "react": "^18.3.1",
     "typescript": "^5.5.2"
   },
   "peerDependencies": {
-    "@aioha/aioha": "^1.3.11",
+    "@aioha/aioha": "^1.4.0",
     "react": "^18.3.1"
   }
 }
