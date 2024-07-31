@@ -36,10 +36,10 @@ const App = () => {
 import { useAioha } from '@aioha/react-provider'
 
 export const AiohaPage = () => {
-  const { aioha, user, provider, login, logout } = useAioha()
+  const { aioha, user, provider } = useAioha()
 
   // rest of your page goes here
 }
 ```
 
-Logins and logouts shall be performed using the `login()` and `logout()` method provided above, not `aioha.login()` or `aioha.logout()`. Logged in username and provider may be retrieved through `user` and `provider` variables.
+Logged in username and provider may be retrieved through `user` and `provider` variables.
