@@ -36,10 +36,10 @@ const App = () => {
 import { useAioha } from '@aioha/react-provider'
 
 export const AiohaPage = () => {
-  const { aioha, user, provider } = useAioha()
+  const { aioha, user, provider, otherUsers } = useAioha()
 
   // rest of your page goes here
 }
 ```
 
-Logged in username and provider may be retrieved through `user` and `provider` variables.
+Logged in username and provider may be retrieved through `user` and `provider` variables. Other authenticated accounts can be retrieved through `otherUsers` variable.
