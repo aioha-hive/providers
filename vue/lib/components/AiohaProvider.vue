@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { provide, ref, onMounted, onUnmounted } from 'vue'
 import { Aioha, Providers, PersistentLoginProvs } from '@aioha/aioha'
-import { AiohaCtx, OtherLoginCtx, ProviderCtx, UserCtx } from '../composables/context.js'
+import { AiohaCtx, OtherUsersCtx, ProviderCtx, UserCtx } from '../composables/context.js'
 
 // Props interface
 interface Props {
@@ -39,7 +39,7 @@ onUnmounted(() => {
 provide(AiohaCtx, props.aioha)
 provide(UserCtx, user)
 provide(ProviderCtx, provider)
-provide(OtherLoginCtx, otherUsers)
+provide(OtherUsersCtx, otherUsers)
 </script>
 
 <template>

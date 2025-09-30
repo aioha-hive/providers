@@ -21,10 +21,10 @@
   "license": "MIT",
   "homepage": "https://aioha.dev",
   "repository": {
-    "url": "https://github.com/aioha-hive/react-provider"
+    "url": "https://github.com/aioha-hive/providers"
   },
   "bugs": {
-    "url": "https://github.com/aioha-hive/react-provider/issues"
+    "url": "https://github.com/aioha-hive/providers/issues"
   },
   "files": [
     "lib",

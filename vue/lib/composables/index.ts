@@ -1,6 +1,6 @@
 import { inject, Ref } from 'vue'
 import type { Aioha, Providers, PersistentLoginProvs } from '@aioha/aioha'
-import { AiohaCtx, UserCtx, ProviderCtx, OtherLoginCtx } from './context.js'
+import { AiohaCtx, UserCtx, ProviderCtx, OtherUsersCtx } from './context.js'
 
 export interface AiohaContext {
   aioha: Aioha
@@ -13,7 +13,7 @@ export const useAioha = (): AiohaContext => {
   const aioha = inject(AiohaCtx)
   const user = inject(UserCtx)
   const provider = inject(ProviderCtx)
-  const otherUsers = inject(OtherLoginCtx)
+  const otherUsers = inject(OtherUsersCtx)
   if (!aioha || !user || !provider || !otherUsers) {
     throw new Error('useAioha must be used within an AiohaProvider')
   }
