@@ -1,0 +1,50 @@
+{
+  "name": "@aioha/vue-provider",
+  "version": "1.8.0",
+  "description": "Vue provider for Aioha",
+  "main": "dist/aioha-vue.umd.cjs",
+  "module": "dist/aioha-vue.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "vue-tsc && vite build",
+    "prepublish": "rm -r dist/*; pnpm run build"
+  },
+  "keywords": [
+    "aioha",
+    "vue",
+    "hive",
+    "blockchain",
+    "authentication",
+    "web3"
+  ],
+  "author": "techcoderx",
+  "license": "MIT",
+  "homepage": "https://aioha.dev",
+  "repository": {
+    "url": "https://github.com/aioha-hive/providers"
+  },
+  "bugs": {
+    "url": "https://github.com/aioha-hive/providers/issues"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@aioha/aioha": "^1.8.0",
+    "@types/node": "^24.6.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7",
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.5.22",
+    "vue-tsc": "^3.1.0"
+  },
+  "peerDependencies": {
+    "@aioha/aioha": "^1.8.0",
+    "vue": "^3.0.0"
+  }
+}
