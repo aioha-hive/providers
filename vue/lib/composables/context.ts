@@ -1,13 +1,8 @@
-import type { InjectionKey } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
 import { Aioha, Providers, PersistentLoginProvs } from '@aioha/aioha'
 
-// Define the context type
-export interface AiohaContext {
-  aioha: Aioha
-  user?: string
-  provider?: Providers
-  otherUsers: PersistentLoginProvs
-}
-
 // Create injection key for type safety
-export const AiohaContextKey: InjectionKey<AiohaContext> = Symbol('AiohaContext')
+export const AiohaCtx: InjectionKey<Aioha> = Symbol('AiohaContext')
+export const UserCtx: InjectionKey<Ref<string | undefined>> = Symbol('AiohaUser')
+export const ProviderCtx: InjectionKey<Ref<Providers | undefined>> = Symbol('AiohaProvider')
+export const OtherLoginCtx: InjectionKey<Ref<PersistentLoginProvs>> = Symbol('AiohaOtherLogin')
