@@ -5,7 +5,7 @@ Vue provider for Aioha that uses Vue's [provide/inject](https://vuejs.org/guide/
 ## Installation
 
 ```sh
-pnpm i @aioha/vue-provider @aioha/aioha
+pnpm i @aioha/providers @aioha/aioha
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ pnpm i @aioha/vue-provider @aioha/aioha
 
 ```vue
 <script setup lang="ts">
-import { AiohaProvider } from '@aioha/vue-provider'
+import { AiohaProvider } from '@aioha/providers/vue'
 import { initAioha } from '@aioha/aioha'
 
 const aioha = initAioha()
@@ -32,7 +32,7 @@ const aioha = initAioha()
 
 ```vue
 <script setup lang="ts">
-import { useAioha } from '@aioha/vue-provider'
+import { useAioha } from '@aioha/providers/vue'
 
 const { aioha, user, provider, otherUsers } = useAioha()
 // ...
@@ -50,7 +50,7 @@ Alternatively using Vue's `inject()` function:
 ```vue
 <script setup lang="ts">
 import { inject } from 'vue'
-import { AiohaCtx, UserCtx, ProviderCtx, OtherUsersCtx } from '@aioha/vue-provider'
+import { AiohaCtx, UserCtx, ProviderCtx, OtherUsersCtx } from '@aioha/providers/vue'
 
 const aioha = inject(AiohaCtx)
 const user = inject(UserCtx)
@@ -73,7 +73,7 @@ Listen for [events](https://aioha.dev/docs/core/jsonrpc#events) using lifecycle 
 ```vue
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
-import { useAioha } from '@aioha/vue-provider'
+import { useAioha } from '@aioha/providers/vue'
 
 const { aioha } = useAioha()
 
@@ -98,7 +98,7 @@ If you are using a framework that uses SSR (server-side rendering) such as Nuxt,
 
 ```vue
 <script setup lang="ts">
-import { AiohaProvider } from '@aioha/vue-provider'
+import { AiohaProvider } from '@aioha/providers/vue'
 import { Aioha } from '@aioha/aioha'
 
 const aioha = new Aioha()

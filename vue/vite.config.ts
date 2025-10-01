@@ -9,8 +9,10 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'lib/index.ts'),
       name: 'AiohaVueProvider',
-      fileName: 'aioha-vue'
+      fileName: 'index'
     },
+    outDir: '../dist/vue',
+    emptyOutDir: true,
     rollupOptions: {
       external: ['vue', '@aioha/aioha'],
       output: {

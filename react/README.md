@@ -7,7 +7,7 @@ This module is used and provided in the ready-made UI so there is no need to ins
 ## Installation
 
 ```sh
-pnpm i @aioha/react-provider @aioha/aioha
+pnpm i @aioha/providers/react @aioha/aioha
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ pnpm i @aioha/react-provider @aioha/aioha
 
 ```tsx
 import { initAioha } from '@aioha/aioha'
-import { AiohaProvider } from '@aioha/react-provider'
+import { AiohaProvider } from '@aioha/providers/react'
 
 // See options: https://aioha.dev/docs/core/usage#instantiation
 const aioha = initAioha()
@@ -33,7 +33,7 @@ const App = () => {
 2. Use Aioha anywhere within `AiohaProvider` through `useAioha()`.
 
 ```tsx
-import { useAioha } from '@aioha/react-provider'
+import { useAioha } from '@aioha/providers/react'
 
 export const AiohaPage = () => {
   const { aioha, user, provider, otherUsers } = useAioha()
@@ -50,7 +50,7 @@ Listen for [events](https://aioha.dev/docs/core/jsonrpc#events) in `useEffect` h
 
 ```tsx title="src/components/YourComponent.tsx"
 import { useEffect } from 'react'
-import { useAioha } from '@aioha/react-provider'
+import { useAioha } from '@aioha/providers/react'
 
 export const YourComponent = () => {
   const { aioha } = useAioha()
@@ -74,7 +74,7 @@ If you are using a framework that uses SSR (server-side rendering) such as Next.
 ```tsx title="src/App.tsx"
 import React, { useEffect } from 'react'
 import { Aioha } from '@aioha/aioha'
-import { AiohaProvider } from '@aioha/react-provider'
+import { AiohaProvider } from '@aioha/providers/react'
 
 const aioha = new Aioha()
 

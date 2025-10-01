@@ -1,0 +1,72 @@
+{
+  "name": "@aioha/providers",
+  "version": "1.8.0",
+  "description": "Framework-specific providers for Aioha",
+  "type": "module",
+  "exports": {
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    },
+    "./vue": {
+      "types": "./dist/vue/index.d.ts",
+      "import": "./dist/vue/index.js",
+      "require": "./dist/vue/index.umd.cjs"
+    }
+  },
+  "scripts": {
+    "build:react": "cd react && tsc",
+    "build:vue": "cd vue && vue-tsc && vite build",
+    "build": "pnpm run build:react && pnpm run build:vue",
+    "prepublish": "rm -rf dist/* && pnpm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aioha",
+    "react",
+    "vue",
+    "hive",
+    "blockchain",
+    "authentication",
+    "web3"
+  ],
+  "author": "techcoderx",
+  "license": "MIT",
+  "homepage": "https://aioha.dev",
+  "repository": {
+    "url": "https://github.com/aioha-hive/providers"
+  },
+  "bugs": {
+    "url": "https://github.com/aioha-hive/providers/issues"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@aioha/aioha": "^1.8.0",
+    "@types/react": "^19.1.8",
+    "@types/node": "^24.6.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "react": "^19.1.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7",
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.5.22",
+    "vue-tsc": "^3.1.0"
+  },
+  "peerDependencies": {
+    "@aioha/aioha": "^1.8.0",
+    "react": "^19.1.0",
+    "vue": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  }
+}
