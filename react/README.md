@@ -43,3 +43,50 @@ export const AiohaPage = () => {
 ```
 
 Logged in username and provider may be retrieved through `user` and `provider` variables. Other authenticated accounts can be retrieved through `otherUsers` variable.
+
+## Using Events
+
+Listen for [events](https://aioha.dev/docs/core/jsonrpc#events) in `useEffect` hook.
+
+```tsx title="src/components/YourComponent.tsx"
+import { useEffect } from 'react'
+import { useAioha } from '@aioha/react-provider'
+
+export const YourComponent = () => {
+  const { aioha } = useAioha()
+  useEffect(() => {
+    const handler = () => {
+      // handle your event here
+    }
+    aioha.on('sign_tx_request', handler)
+
+    return () => {
+      aioha.off('sign_tx_request', handler)
+    }
+  }, [])
+}
+```
+
+## SSR Apps
+
+If you are using a framework that uses SSR (server-side rendering) such as Next.js, you may need to setup Aioha separately in a `useEffect()`.
+
+```tsx title="src/App.tsx"
+import React, { useEffect } from 'react'
+import { Aioha } from '@aioha/aioha'
+import { AiohaProvider } from '@aioha/react-provider'
+
+const aioha = new Aioha()
+
+const App = () => {
+  useEffect(() => {
+    // See options: https://aioha.dev/docs/core/usage#instantiation
+    aioha.setup()
+  }, [])
+  return (
+    <AiohaProvider aioha={aioha}>
+      <TheRestOfYourApplication />
+    </AiohaProvider>
+  )
+}
+```
