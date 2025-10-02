@@ -4,6 +4,10 @@
   "description": "Framework-specific providers for Aioha",
   "type": "module",
   "exports": {
+    "./lit": {
+      "types": "./dist/lit/index.d.ts",
+      "import": "./dist/lit/index.js"
+    },
     "./react": {
       "types": "./dist/react/index.d.ts",
       "import": "./dist/react/index.js"
@@ -15,9 +19,10 @@
     }
   },
   "scripts": {
+    "build:lit": "cd lit && tsc",
     "build:react": "cd react && tsc",
     "build:vue": "cd vue && vue-tsc && vite build",
-    "build": "pnpm run build:react && pnpm run build:vue",
+    "build": "pnpm run build:lit && pnpm run build:react && pnpm run build:vue",
     "prepublish": "rm -rf dist/* && pnpm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -46,9 +51,11 @@
   ],
   "devDependencies": {
     "@aioha/aioha": "^1.8.0",
-    "@types/react": "^19.1.8",
+    "@lit/context": "^1.1.6",
     "@types/node": "^24.6.0",
+    "@types/react": "^19.1.8",
     "@vitejs/plugin-vue": "^6.0.1",
+    "lit": "^3.3.1",
     "react": "^19.1.0",
     "typescript": "^5.9.2",
     "vite": "^7.1.7",
@@ -58,10 +65,18 @@
   },
   "peerDependencies": {
     "@aioha/aioha": "^1.8.0",
+    "@lit/context": "^1.1.0",
+    "lit": "^3.3.0",
     "react": "^19.1.0",
     "vue": "^3.0.0"
   },
   "peerDependenciesMeta": {
+    "@lit/context": {
+      "optional": true
+    },
+    "lit": {
+      "optional": true
+    },
     "react": {
       "optional": true
     },
