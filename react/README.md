@@ -7,7 +7,7 @@ This module is used and provided in the ready-made UI so there is no need to ins
 ## Installation
 
 ```sh
-pnpm i @aioha/providers/react @aioha/aioha
+pnpm i @aioha/providers @aioha/aioha
 ```
 
 ## Usage

@@ -24,6 +24,8 @@ export class MyElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback()
+
+    // See options: https://aioha.dev/docs/core/usage#instantiation
     this.aioha.setup()
   }
 
@@ -100,12 +102,12 @@ export class SomeElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback()
-    this.aioha.on('sign_tx_request', this._handler)
+    this.aioha!.on('sign_tx_request', this._handler)
   }
 
   disconnectedCallback() {
     super.disconnectedCallback()
-    this.aioha.off('sign_tx_request', this._handler)
+    this.aioha!.off('sign_tx_request', this._handler)
   }
 
   render() {
