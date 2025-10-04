@@ -50,7 +50,7 @@ Listen for [events](https://aioha.dev/docs/core/jsonrpc#events) using lifecycle 
 
 ```svelte
 <script lang="ts">
-  import { getContext, onMount, onDestroy } from 'svelte'
+  import { getContext, onMount } from 'svelte'
   import { AiohaCtxKey, type AiohaContext } from '@aioha/providers/svelte'
 
   const ctx = getContext<AiohaContext>(AiohaCtxKey)
@@ -61,10 +61,8 @@ Listen for [events](https://aioha.dev/docs/core/jsonrpc#events) using lifecycle 
 
   onMount(() => {
     ctx.aioha.on('sign_tx_request', handler)
-  })
 
-  onDestroy(() => {
-    ctx.aioha.off('sign_tx_request', handler)
+    return () => ctx.aioha.off('sign_tx_request', handler)
   })
   // ...
 </script>

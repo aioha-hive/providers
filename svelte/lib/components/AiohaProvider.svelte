@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, onDestroy, setContext } from 'svelte'
+  import { onMount, setContext } from 'svelte'
   import type { Aioha } from '@aioha/aioha'
   import { AiohaCtxKey } from '../context.js'
 
@@ -22,12 +22,12 @@
     aioha.on('connect', update)
     aioha.on('disconnect', update)
     aioha.on('account_changed', update)
-  })
 
-  onDestroy(() => {
-    aioha.off('connect', update)
-    aioha.off('disconnect', update)
-    aioha.off('account_changed', update)
+    return () => {
+      aioha.off('connect', update)
+      aioha.off('disconnect', update)
+      aioha.off('account_changed', update)
+    }
   })
 
   setContext(AiohaCtxKey, ctx)
