@@ -76,6 +76,7 @@ If you are using a framework that uses SSR (server-side rendering) such as Svelt
 
 ```svelte
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { AiohaProvider } from '@aioha/providers/svelte'
   import { Aioha } from '@aioha/aioha'
 
