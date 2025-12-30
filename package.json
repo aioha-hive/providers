@@ -1,6 +1,6 @@
 {
   "name": "@aioha/providers",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "Framework-specific providers for Aioha",
   "type": "module",
   "exports": {

@@ -33,6 +33,10 @@ export class AiohaProvider extends LitElement {
   //@ts-ignore
   private _otherUsers: PersistentLoginProvs = {}
 
+  protected createRenderRoot(): HTMLElement | DocumentFragment {
+    return this
+  }
+
   connectedCallback() {
     super.connectedCallback()
 
