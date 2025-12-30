@@ -15,6 +15,9 @@ export class AiohaProvider extends LitElement {
   @property({ attribute: false })
   aioha!: Aioha
 
+  // Persistent reference that won't be cleared by Lit during component removal
+  private _aiohaRef?: Aioha
+
   @provide({ context: UserCtx })
   @state()
   //@ts-ignore
@@ -33,6 +36,9 @@ export class AiohaProvider extends LitElement {
   connectedCallback() {
     super.connectedCallback()
 
+    // Store persistent reference before any potential clearing
+    this._aiohaRef = this.aioha
+
     // Initialize state
     this._user = this.aioha.getCurrentUser()
     this._provider = this.aioha.getCurrentProvider()
@@ -47,16 +53,20 @@ export class AiohaProvider extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback()
 
-    // Clean up event listeners
-    this.aioha.off('connect', this._update)
-    this.aioha.off('disconnect', this._update)
-    this.aioha.off('account_changed', this._update)
+    // Clean up event listeners using persistent reference
+    if (this._aiohaRef) {
+      this._aiohaRef.off('connect', this._update)
+      this._aiohaRef.off('disconnect', this._update)
+      this._aiohaRef.off('account_changed', this._update)
+    }
   }
 
-  private _update() {
-    this._user = this.aioha.getCurrentUser()
-    this._provider = this.aioha.getCurrentProvider()
-    this._otherUsers = this.aioha.getOtherLogins()
+  private _update = () => {
+    // Use persistent reference to avoid issues during component removal
+    const aiohaInstance = this._aiohaRef || this.aioha
+    this._user = aiohaInstance.getCurrentUser()
+    this._provider = aiohaInstance.getCurrentProvider()
+    this._otherUsers = aiohaInstance.getOtherLogins()
   }
 
   render() {
