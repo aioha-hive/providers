@@ -77,3 +77,9 @@ export class AiohaProvider extends LitElement {
     return html`<slot></slot>`
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'aioha-provider': AiohaProvider
+  }
+}
