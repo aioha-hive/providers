@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017", "ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "react",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "../../dist/magi/react",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["lib"]
+}

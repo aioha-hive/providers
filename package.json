@@ -1,6 +1,6 @@
 {
   "name": "@aioha/providers",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "Framework-specific providers for Aioha",
   "type": "module",
   "exports": {
@@ -20,6 +20,23 @@
     "./svelte": {
       "types": "./dist/svelte/index.d.ts",
       "svelte": "./dist/svelte/index.js"
+    },
+    "./magi/lit": {
+      "types": "./dist/magi/lit/index.d.ts",
+      "import": "./dist/magi/lit/index.js"
+    },
+    "./magi/react": {
+      "types": "./dist/magi/react/index.d.ts",
+      "import": "./dist/magi/react/index.js"
+    },
+    "./magi/vue": {
+      "types": "./dist/magi/vue/index.d.ts",
+      "import": "./dist/magi/vue/index.js",
+      "require": "./dist/magi/vue/index.umd.cjs"
+    },
+    "./magi/svelte": {
+      "types": "./dist/magi/svelte/index.d.ts",
+      "svelte": "./dist/magi/svelte/index.js"
     }
   },
   "scripts": {
@@ -27,7 +44,12 @@
     "build:react": "cd react && tsc",
     "build:vue": "cd vue && vue-tsc && vite build",
     "build:svelte": "cd svelte && vite build && cd ../ && svelte-package --tsconfig svelte/tsconfig.json -i svelte/lib -o dist/svelte -t -p && rm dist/svelte/index.es.js",
-    "build": "pnpm run build:lit && pnpm run build:react && pnpm run build:vue && pnpm run build:svelte",
+    "build:magi:lit": "cd magi/lit && tsc",
+    "build:magi:react": "cd magi/react && tsc",
+    "build:magi:vue": "cd magi/vue && vue-tsc && vite build",
+    "build:magi:svelte": "cd magi/svelte && vite build && cd ../../ && svelte-package --tsconfig magi/svelte/tsconfig.json -i magi/svelte/lib -o dist/magi/svelte -t -p && rm dist/magi/svelte/index.es.js",
+    "build:magi": "pnpm run build:magi:lit && pnpm run build:magi:react && pnpm run build:magi:vue && pnpm run build:magi:svelte",
+    "build": "pnpm run build:lit && pnpm run build:react && pnpm run build:vue && pnpm run build:svelte && pnpm run build:magi",
     "prepublish": "rm -rf dist/* && pnpm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -56,6 +78,7 @@
   ],
   "devDependencies": {
     "@aioha/aioha": "^1.8.0",
+    "@aioha/magi": "^0.0.2",
     "@lit/context": "^1.1.6",
     "@sveltejs/package": "^2.5.4",
     "@sveltejs/vite-plugin-svelte": "^6.2.1",
@@ -74,6 +97,7 @@
   },
   "peerDependencies": {
     "@aioha/aioha": "^1.8.0",
+    "@aioha/magi": "^0.0.2",
     "@lit/context": "^1.1.0",
     "lit": "^3.3.0",
     "react": "^19.1.0",
@@ -81,6 +105,9 @@
     "vue": "^3.0.0"
   },
   "peerDependenciesMeta": {
+    "@aioha/magi": {
+      "optional": true
+    },
     "@lit/context": {
       "optional": true
     },

@@ -1,0 +1,18 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.magi.svelte.tsbuildinfo",
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "types": ["svelte"],
+    "noEmit": true,
+    "declaration": true,
+    "allowJs": true,
+    "checkJs": true,
+    "moduleDetection": "force",
+    "outDir": "../../dist/magi/svelte",
+    "rootDir": ".."
+  },
+  "include": ["lib/**/*.ts", "lib/**/*.svelte", "../types.ts"]
+}
