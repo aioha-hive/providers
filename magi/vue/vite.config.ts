@@ -14,12 +14,13 @@ export default defineConfig({
     outDir: '../../dist/magi/vue',
     emptyOutDir: true,
     rollupOptions: {
-      external: ['vue', '@aioha/aioha', '@aioha/magi'],
+      external: ['vue', '@aioha/aioha', '@aioha/magi', '@wagmi/vue'],
       output: {
         globals: {
           vue: 'vue',
           '@aioha/aioha': 'aioha',
-          '@aioha/magi': 'magi'
+          '@aioha/magi': 'magi',
+          '@wagmi/vue': 'wagmiVue'
         }
       }
     }

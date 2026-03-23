@@ -1,7 +1,7 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import React, { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react'
 import type { Aioha } from '@aioha/aioha'
 import { Magi, Wallet } from '@aioha/magi'
-import type { EIP1193Provider } from '../../types.js'
+import { useConnectorClient } from 'wagmi'
 
 export const MagiContext = createContext<
   | {
@@ -12,17 +12,24 @@ export const MagiContext = createContext<
   | undefined
 >(undefined)
 
-export const MagiProvider = ({
-  magi,
-  aioha,
-  eip1193,
-  children
-}: {
-  magi: Magi
-  aioha?: Aioha
-  eip1193?: EIP1193Provider
-  children: ReactNode
-}) => {
+const WagmiEthSync = ({ magi, onUpdate }: { magi: Magi; onUpdate: () => void }) => {
+  const { data: walletClient } = useConnectorClient()
+
+  useEffect(() => {
+    if (!!walletClient) {
+      magi.setViem(walletClient as any)
+      magi.setWallet(Wallet.Ethereum)
+      onUpdate()
+    } else {
+      magi.setWallet()
+      onUpdate()
+    }
+  }, [walletClient])
+
+  return null
+}
+
+export const MagiProvider = ({ magi, aioha, children }: { magi: Magi; aioha?: Aioha; children: ReactNode }) => {
   const [user, setUser] = useState<string | undefined>(magi.getUser())
   const [wallet, setWallet] = useState<Wallet | undefined>(magi.getWallet())
   const update = () => {
@@ -32,18 +39,12 @@ export const MagiProvider = ({
   const updateHive = () => {
     if (magi.getWallet() === Wallet.Hive) setUser(magi.getUser())
   }
-  const updateEvm = () => {
-    if (magi.getWallet() === Wallet.Ethereum) setUser(magi.getUser())
-  }
   useEffect(() => {
     magi.on('wallet_changed', update)
     if (aioha) {
       aioha.on('connect', updateHive)
       aioha.on('disconnect', updateHive)
       aioha.on('account_changed', updateHive)
-    }
-    if (eip1193) {
-      eip1193.on('accountsChanged', updateEvm)
     }
 
     return () => {
@@ -52,9 +53,6 @@ export const MagiProvider = ({
         aioha.off('connect', updateHive)
         aioha.off('disconnect', updateHive)
         aioha.off('account_changed', updateHive)
-      }
-      if (eip1193) {
-        eip1193.removeListener('accountsChanged', updateEvm)
       }
     }
   }, [])
@@ -66,6 +64,7 @@ export const MagiProvider = ({
         wallet
       }}
     >
+      <WagmiEthSync magi={magi} onUpdate={update} />
       {children}
     </MagiContext.Provider>
   )

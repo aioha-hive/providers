@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@aioha/aioha':
-        specifier: ^1.8.0
-        version: 1.8.0(webextension-polyfill@0.12.0)
+        specifier: ^1.8.2
+        version: 1.8.2(webextension-polyfill@0.12.0)
       '@aioha/magi':
-        specifier: ^0.0.2
-        version: 0.0.2(@aioha/aioha@1.8.0(webextension-polyfill@0.12.0))(viem@2.47.6(typescript@5.9.3))
+        specifier: ^0.0.3
+        version: 0.0.3(@aioha/aioha@1.8.2(webextension-polyfill@0.12.0))(viem@2.47.6(typescript@5.9.3))
       '@lit/context':
         specifier: ^1.1.6
         version: 1.1.6
@@ -23,6 +23,12 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^6.2.1
         version: 6.2.1(svelte@5.39.8)(vite@7.1.7(@types/node@24.6.1))
+      '@tanstack/react-query':
+        specifier: ^5.94.5
+        version: 5.95.0(react@19.1.1)
+      '@tanstack/vue-query':
+        specifier: ^5.94.5
+        version: 5.95.0(vue@3.5.22(typescript@5.9.3))
       '@tsconfig/svelte':
         specifier: ^5.0.5
         version: 5.0.5
@@ -35,6 +41,9 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^6.0.1
         version: 6.0.1(vite@7.1.7(@types/node@24.6.1))(vue@3.5.22(typescript@5.9.3))
+      '@wagmi/vue':
+        specifier: ^0.5.0
+        version: 0.5.0(@tanstack/query-core@5.95.0)(@tanstack/vue-query@5.95.0(vue@3.5.22(typescript@5.9.3)))(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3))(vue@3.5.22(typescript@5.9.3))
       lit:
         specifier: ^3.3.1
         version: 3.3.1
@@ -47,6 +56,9 @@ importers:
       typescript:
         specifier: ^5.9.2
         version: 5.9.3
+      viem:
+        specifier: ^2.47.6
+        version: 2.47.6(typescript@5.9.3)
       vite:
         specifier: ^7.1.7
         version: 7.1.7(@types/node@24.6.1)
@@ -59,27 +71,30 @@ importers:
       vue-tsc:
         specifier: ^3.1.0
         version: 3.1.0(typescript@5.9.3)
+      wagmi:
+        specifier: ^3.5.0
+        version: 3.5.0(@tanstack/query-core@5.95.0)(@tanstack/react-query@5.95.0(react@19.1.1))(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(viem@2.47.6(typescript@5.9.3))
 
 packages:
 
   '@adraffy/ens-normalize@1.11.1':
     resolution: {integrity: sha512-nhCBV3quEgesuf7c7KYfperqSS14T8bYuvJ8PcLJp6znkZpFc0AuW4qBtr8eKVyPPe/8RSr7sglCWPU5eaxwKQ==}
 
-  '@aioha/aioha@1.8.0':
-    resolution: {integrity: sha512-ybgFI/28quDwbsiDALZalJpHWslHQ71ycp9LJh7N80lKkRK7L/cAWXfTt+sJY6Aoz2+f+YH+2WmOxiuWolhdbg==}
+  '@aioha/aioha@1.8.2':
+    resolution: {integrity: sha512-Q+WK7/u4oi7kMSrPLnJ6LMjTCVMv8dVAlB1/06s097mjPINmidBqDmLc5VgXnCfj/qQ0bWFE0eDOL3O7Vm7OCg==}
 
   '@aioha/ledger-app-hive@0.0.2':
     resolution: {integrity: sha512-+ZUe9Iyv00WA5TDfi7TsCHKl5b22prR06JAG9u/9m9jePbGB83dtUMS65e/q3oXiMX78M4/YaDI8DYdIJmnk1A==}
     engines: {node: '>=18.0.0'}
 
-  '@aioha/magi@0.0.2':
-    resolution: {integrity: sha512-wr8inJOQ2e4GzAWDZ5R5Eah0Qwiot3/2Pb+SIIzFR64b2FsMtrQpz7iJKD5ozLQGwybbswK1osf/n/hw1USwFQ==}
+  '@aioha/magi@0.0.3':
+    resolution: {integrity: sha512-+OW0gj5H6QvqXjEU1K+0i2jGP0A4plX8J0aIK6JXa7SECNLe27KV3CcbE8o0qhoySVQ2yBgUr4lJPN0c8cC0Pw==}
     peerDependencies:
       '@aioha/aioha': ^1.8.2
       viem: 2.x
 
-  '@aioha/tx-digest@2.0.0':
-    resolution: {integrity: sha512-ZLMpsNLv4HAvPdWQOPmUc5s/HsFPf1a4LvQRKQZoIOmq3bEtjKEjnTVTx13PvRSddjrVOWAwgam77oaj3/7a3g==}
+  '@aioha/tx-digest@2.0.2':
+    resolution: {integrity: sha512-sY4fLevN7MjggVO4lG+H8iibw6k22ChXmE4mYVU5GitL3mLvoj+VU/zA3KQVxcsszziF1Y/5+TYnnd99vGtx5g==}
 
   '@babel/helper-string-parser@7.27.1':
     resolution: {integrity: sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA==}
@@ -277,8 +292,8 @@ packages:
   '@hiveio/dhive@1.3.2':
     resolution: {integrity: sha512-kJjp3TbpIlODxjJX4BWwvOf+cMxT8CFH/mNQ40RRjR2LP0a4baSWae1G+U/q/NtgjsIQz6Ja40tvnw6KF12I+g==}
 
-  '@hiveio/wax@1.27.11-rc0':
-    resolution: {integrity: sha512-9t7rYkGYby4zXUkE1DaF6VseTj5P4Ka/AQai7z9nSKRqzVnmuNlKI+ZTWxEwmJLU9SyKdz5rKrUNwAi7Xig1tg==}
+  '@hiveio/wax@2.0.2':
+    resolution: {integrity: sha512-56XtjET1thX2rphHM/QwtQbjHws5N059NzabiVA8W7xSZE9x1Dw0HxIYNU2ZzlD1PJ1ux3bQfUyhJtbW+VrCCw==}
     engines: {node: ^20.11 || >= 21.2}
 
   '@isaacs/balanced-match@4.0.1':
@@ -601,6 +616,27 @@ packages:
       svelte: ^5.0.0
       vite: ^6.3.0 || ^7.0.0
 
+  '@tanstack/match-sorter-utils@8.19.4':
+    resolution: {integrity: sha512-Wo1iKt2b9OT7d+YGhvEPD3DXvPv2etTusIMhMUoG7fbhmxcXCtIjJDEygy91Y2JFlwGyjqiBPRozme7UD8hoqg==}
+    engines: {node: '>=12'}
+
+  '@tanstack/query-core@5.95.0':
+    resolution: {integrity: sha512-H1/CWCe8tGL3YIVeo770Z6kPbt0B3M1d/iQXIIK1qlFiFt6G2neYdkHgLapOC8uMYNt9DmHjmGukEKgdMk1P+A==}
+
+  '@tanstack/react-query@5.95.0':
+    resolution: {integrity: sha512-EMP8B+BK9zvnAemT8M/y3z/WO0NjZ7fIUY3T3wnHYK6AA3qK/k33i7tPgCXCejhX0cd4I6bJIXN2GmjrHjDBzg==}
+    peerDependencies:
+      react: ^18 || ^19
+
+  '@tanstack/vue-query@5.95.0':
+    resolution: {integrity: sha512-pxZQlXf0mzlcp40EzTfxjrveCc0QYwnjx2CH6QEzjaMmH4N5iWdESGvfOqxfbgx5zbWhRk0T8p79XMbs97y/RA==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.2
+      vue: ^2.6.0 || ^3.3.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+
   '@tsconfig/svelte@5.0.5':
     resolution: {integrity: sha512-48fAnUjKye38FvMiNOj0J9I/4XlQQiZlpe9xaNPfe8vy2Y1hFBt8g1yqf2EGjVvHavo4jf2lC+TQyENCr4BJBQ==}
 
@@ -659,6 +695,9 @@ packages:
   '@vue/compiler-vue2@2.7.16':
     resolution: {integrity: sha512-qYC3Psj9S/mfu9uVi5WvNZIzq+xnXMhOwbTFKKDD7b1lhpnn71jXSFdTQ+WsIEk0ONCd7VV2IMm7ONl6tbQ86A==}
 
+  '@vue/devtools-api@6.6.4':
+    resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
+
   '@vue/language-core@2.2.0':
     resolution: {integrity: sha512-O1ZZFaaBGkKbsRfnVH1ifOK1/1BUkyK+3SQsfnh6PmMmD4qJcTU8godCeA96jjDRTL6zgnK7YzCHfaUlH2r0Mw==}
     peerDependencies:
@@ -691,6 +730,66 @@ packages:
 
   '@vue/shared@3.5.22':
     resolution: {integrity: sha512-F4yc6palwq3TT0u+FYf0Ns4Tfl9GRFURDN2gWG7L1ecIaS/4fCIuFOjMTnCyjsu/OK6vaDKLCrGAa+KvvH+h4w==}
+
+  '@wagmi/connectors@7.2.1':
+    resolution: {integrity: sha512-/tyDepUMDM8eNzNX3ofjqHNRFZ6XcZ3u0+cQp5x0/LHCpMA8tRh7A1/e7dTrYiIJeL7iLgHzfHUXCsU02OKMLQ==}
+    peerDependencies:
+      '@base-org/account': ^2.5.1
+      '@coinbase/wallet-sdk': ^4.3.6
+      '@metamask/sdk': ~0.33.1
+      '@safe-global/safe-apps-provider': ~0.18.6
+      '@safe-global/safe-apps-sdk': ^9.1.0
+      '@wagmi/core': 3.4.0
+      '@walletconnect/ethereum-provider': ^2.21.1
+      porto: ~0.2.35
+      typescript: '>=5.7.3'
+      viem: 2.x
+    peerDependenciesMeta:
+      '@base-org/account':
+        optional: true
+      '@coinbase/wallet-sdk':
+        optional: true
+      '@metamask/sdk':
+        optional: true
+      '@safe-global/safe-apps-provider':
+        optional: true
+      '@safe-global/safe-apps-sdk':
+        optional: true
+      '@walletconnect/ethereum-provider':
+        optional: true
+      porto:
+        optional: true
+      typescript:
+        optional: true
+
+  '@wagmi/core@3.4.0':
+    resolution: {integrity: sha512-EU5gDsUp5t7+cuLv12/L8hfyWfCIKsBNiiBqpOqxZJxvAcAiQk4xFe2jMgaQPqApc3Omvxrk032M8AQ4N0cQeg==}
+    peerDependencies:
+      '@tanstack/query-core': '>=5.0.0'
+      ox: '>=0.11.1'
+      typescript: '>=5.7.3'
+      viem: 2.x
+    peerDependenciesMeta:
+      '@tanstack/query-core':
+        optional: true
+      ox:
+        optional: true
+      typescript:
+        optional: true
+
+  '@wagmi/vue@0.5.0':
+    resolution: {integrity: sha512-WAd7gBA2lctuI29VRg2LzM+Tv1bCgNb0PHFcuO4rjCbB+n6B6OutoprBjmVZR5UDN0wYp6F6oJuDxPE6y7gkPA==}
+    peerDependencies:
+      '@tanstack/vue-query': '>=5.0.0'
+      nuxt: '>=3.0.0 || >=4.0.0'
+      typescript: '>=5.7.3'
+      viem: 2.x
+      vue: '>=3'
+    peerDependenciesMeta:
+      nuxt:
+        optional: true
+      typescript:
+        optional: true
 
   abitype@1.2.3:
     resolution: {integrity: sha512-Ofer5QUnuUdTFsBRwARMoWKOH1ND5ehwYhJ3OJ/BQO+StkwQjHw0XyVh4vDttzHB7QOFhPHa/o413PJ82gU/Tg==}
@@ -1156,6 +1255,14 @@ packages:
     resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  mipd@0.0.7:
+    resolution: {integrity: sha512-aAPZPNDQ3uMTdKbuO2YmAw2TxLHO0moa4YKAyETM/DTj5FloZo+a+8tU+iv4GmW+sOxKLSRwcSFuczk+Cpt6fg==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   mlly@1.8.0:
     resolution: {integrity: sha512-l8D9ODSRWLe2KHJSifWGwBqpTZXIXTeo8mlKjY+E2HAakaTeNpqAyBZ8GSqLzHgw4XmHmC8whvpjJNMbFZN7/g==}
 
@@ -1258,6 +1365,9 @@ packages:
   readdirp@4.1.2:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
     engines: {node: '>= 14.18.0'}
+
+  remove-accents@0.5.0:
+    resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
 
   require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
@@ -1400,6 +1510,11 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
+  use-sync-external-store@1.4.0:
+    resolution: {integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -1482,6 +1597,17 @@ packages:
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
 
+  vue-demi@0.14.10:
+    resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
+    engines: {node: '>=12'}
+    hasBin: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+
   vue-tsc@3.1.0:
     resolution: {integrity: sha512-fbMynMG7kXSnqZTRBSCh9ROYaVpXfCZbEO0gY3lqOjLbp361uuS88n6BDajiUriDIF+SGLWoinjvf6stS2J3Gg==}
     hasBin: true
@@ -1492,6 +1618,17 @@ packages:
     resolution: {integrity: sha512-toaZjQ3a/G/mYaLSbV+QsQhIdMo9x5rrqIpYRObsJ6T/J+RyCSFwN2LHNVH9v8uIcljDNa3QzPVdv3Y6b9hAJQ==}
     peerDependencies:
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  wagmi@3.5.0:
+    resolution: {integrity: sha512-39uiY6Vkc28NiAHrxJzVTodoRgSVGG97EewwUxRf+jcFMTe8toAnaM8pJZA3Zw/6snMg4tSgWLJAtMnOacLe7w==}
+    peerDependencies:
+      '@tanstack/react-query': '>=5.0.0'
+      react: '>=18'
+      typescript: '>=5.7.3'
+      viem: 2.x
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -1533,16 +1670,34 @@ packages:
   zimmerframe@1.1.4:
     resolution: {integrity: sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ==}
 
+  zustand@5.0.0:
+    resolution: {integrity: sha512-LE+VcmbartOPM+auOjCCLQOsQ05zUTp8RkgwRzefUk+2jISdMMFnxvyTjA4YNWr5ZGXYbVsEMZosttuxUBkojQ==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
+
 snapshots:
 
   '@adraffy/ens-normalize@1.11.1': {}
 
-  '@aioha/aioha@1.8.0(webextension-polyfill@0.12.0)':
+  '@aioha/aioha@1.8.2(webextension-polyfill@0.12.0)':
     dependencies:
       '@aioha/ledger-app-hive': 0.0.2
-      '@aioha/tx-digest': 2.0.0
+      '@aioha/tx-digest': 2.0.2
       '@hiveio/dhive': 1.3.2
-      '@hiveio/wax': 1.27.11-rc0
+      '@hiveio/wax': 2.0.2
       '@ledgerhq/hw-transport-webusb': 6.29.12
       '@metamask/providers': 22.1.1(webextension-polyfill@0.12.0)
       js-md5: 0.8.3
@@ -1561,13 +1716,13 @@ snapshots:
       inherits: 2.0.4
       varint: 6.0.0
 
-  '@aioha/magi@0.0.2(@aioha/aioha@1.8.0(webextension-polyfill@0.12.0))(viem@2.47.6(typescript@5.9.3))':
+  '@aioha/magi@0.0.3(@aioha/aioha@1.8.2(webextension-polyfill@0.12.0))(viem@2.47.6(typescript@5.9.3))':
     dependencies:
-      '@aioha/aioha': 1.8.0(webextension-polyfill@0.12.0)
+      '@aioha/aioha': 1.8.2(webextension-polyfill@0.12.0)
       multiformats: 13.4.2
       viem: 2.47.6(typescript@5.9.3)
 
-  '@aioha/tx-digest@2.0.0':
+  '@aioha/tx-digest@2.0.2':
     dependencies:
       bs58: 6.0.0
 
@@ -1704,7 +1859,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@hiveio/wax@1.27.11-rc0':
+  '@hiveio/wax@2.0.2':
     dependencies:
       events: 3.3.0
 
@@ -1735,7 +1890,7 @@ snapshots:
 
   '@ledgerhq/devices@8.4.7':
     dependencies:
-      '@ledgerhq/errors': 6.22.0
+      '@ledgerhq/errors': 6.26.0
       '@ledgerhq/logs': 6.13.0
       rxjs: 7.8.2
       semver: 7.7.2
@@ -1768,7 +1923,7 @@ snapshots:
   '@ledgerhq/hw-transport@6.31.7':
     dependencies:
       '@ledgerhq/devices': 8.4.7
-      '@ledgerhq/errors': 6.22.0
+      '@ledgerhq/errors': 6.26.0
       '@ledgerhq/logs': 6.13.0
       events: 3.3.0
 
@@ -2076,6 +2231,25 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@tanstack/match-sorter-utils@8.19.4':
+    dependencies:
+      remove-accents: 0.5.0
+
+  '@tanstack/query-core@5.95.0': {}
+
+  '@tanstack/react-query@5.95.0(react@19.1.1)':
+    dependencies:
+      '@tanstack/query-core': 5.95.0
+      react: 19.1.1
+
+  '@tanstack/vue-query@5.95.0(vue@3.5.22(typescript@5.9.3))':
+    dependencies:
+      '@tanstack/match-sorter-utils': 8.19.4
+      '@tanstack/query-core': 5.95.0
+      '@vue/devtools-api': 6.6.4
+      vue: 3.5.22(typescript@5.9.3)
+      vue-demi: 0.14.10(vue@3.5.22(typescript@5.9.3))
+
   '@tsconfig/svelte@5.0.5': {}
 
   '@types/argparse@1.0.38': {}
@@ -2153,6 +2327,8 @@ snapshots:
       de-indent: 1.0.2
       he: 1.2.0
 
+  '@vue/devtools-api@6.6.4': {}
+
   '@vue/language-core@2.2.0(typescript@5.9.3)':
     dependencies:
       '@volar/language-core': 2.4.23
@@ -2201,6 +2377,53 @@ snapshots:
       vue: 3.5.22(typescript@5.9.3)
 
   '@vue/shared@3.5.22': {}
+
+  '@wagmi/connectors@7.2.1(@wagmi/core@3.4.0(@tanstack/query-core@5.95.0)(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3)))(typescript@5.9.3)(viem@2.47.6(typescript@5.9.3))':
+    dependencies:
+      '@wagmi/core': 3.4.0(@tanstack/query-core@5.95.0)(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3))
+      viem: 2.47.6(typescript@5.9.3)
+    optionalDependencies:
+      typescript: 5.9.3
+
+  '@wagmi/core@3.4.0(@tanstack/query-core@5.95.0)(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3))':
+    dependencies:
+      eventemitter3: 5.0.1
+      mipd: 0.0.7(typescript@5.9.3)
+      viem: 2.47.6(typescript@5.9.3)
+      zustand: 5.0.0(@types/react@19.1.16)(react@19.1.1)(use-sync-external-store@1.4.0(react@19.1.1))
+    optionalDependencies:
+      '@tanstack/query-core': 5.95.0
+      ox: 0.14.7(typescript@5.9.3)
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+      - react
+      - use-sync-external-store
+
+  '@wagmi/vue@0.5.0(@tanstack/query-core@5.95.0)(@tanstack/vue-query@5.95.0(vue@3.5.22(typescript@5.9.3)))(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3))(vue@3.5.22(typescript@5.9.3))':
+    dependencies:
+      '@tanstack/vue-query': 5.95.0(vue@3.5.22(typescript@5.9.3))
+      '@wagmi/connectors': 7.2.1(@wagmi/core@3.4.0(@tanstack/query-core@5.95.0)(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3)))(typescript@5.9.3)(viem@2.47.6(typescript@5.9.3))
+      '@wagmi/core': 3.4.0(@tanstack/query-core@5.95.0)(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3))
+      viem: 2.47.6(typescript@5.9.3)
+      vue: 3.5.22(typescript@5.9.3)
+    optionalDependencies:
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - '@base-org/account'
+      - '@coinbase/wallet-sdk'
+      - '@metamask/sdk'
+      - '@safe-global/safe-apps-provider'
+      - '@safe-global/safe-apps-sdk'
+      - '@tanstack/query-core'
+      - '@types/react'
+      - '@walletconnect/ethereum-provider'
+      - immer
+      - ox
+      - porto
+      - react
+      - use-sync-external-store
 
   abitype@1.2.3(typescript@5.9.3):
     optionalDependencies:
@@ -2675,6 +2898,10 @@ snapshots:
     dependencies:
       brace-expansion: 2.0.2
 
+  mipd@0.0.7(typescript@5.9.3):
+    optionalDependencies:
+      typescript: 5.9.3
+
   mlly@1.8.0:
     dependencies:
       acorn: 8.15.0
@@ -2774,6 +3001,8 @@ snapshots:
       util-deprecate: 1.0.2
 
   readdirp@4.1.2: {}
+
+  remove-accents@0.5.0: {}
 
   require-from-string@2.0.2: {}
 
@@ -2945,6 +3174,10 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
+  use-sync-external-store@1.4.0(react@19.1.1):
+    dependencies:
+      react: 19.1.1
+
   util-deprecate@1.0.2: {}
 
   uuid@9.0.1: {}
@@ -3011,6 +3244,10 @@ snapshots:
 
   vscode-uri@3.1.0: {}
 
+  vue-demi@0.14.10(vue@3.5.22(typescript@5.9.3)):
+    dependencies:
+      vue: 3.5.22(typescript@5.9.3)
+
   vue-tsc@3.1.0(typescript@5.9.3):
     dependencies:
       '@volar/typescript': 2.4.23
@@ -3026,6 +3263,29 @@ snapshots:
       '@vue/shared': 3.5.22
     optionalDependencies:
       typescript: 5.9.3
+
+  wagmi@3.5.0(@tanstack/query-core@5.95.0)(@tanstack/react-query@5.95.0(react@19.1.1))(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(viem@2.47.6(typescript@5.9.3)):
+    dependencies:
+      '@tanstack/react-query': 5.95.0(react@19.1.1)
+      '@wagmi/connectors': 7.2.1(@wagmi/core@3.4.0(@tanstack/query-core@5.95.0)(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3)))(typescript@5.9.3)(viem@2.47.6(typescript@5.9.3))
+      '@wagmi/core': 3.4.0(@tanstack/query-core@5.95.0)(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3))
+      react: 19.1.1
+      use-sync-external-store: 1.4.0(react@19.1.1)
+      viem: 2.47.6(typescript@5.9.3)
+    optionalDependencies:
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - '@base-org/account'
+      - '@coinbase/wallet-sdk'
+      - '@metamask/sdk'
+      - '@safe-global/safe-apps-provider'
+      - '@safe-global/safe-apps-sdk'
+      - '@tanstack/query-core'
+      - '@types/react'
+      - '@walletconnect/ethereum-provider'
+      - immer
+      - ox
+      - porto
 
   webextension-polyfill@0.12.0: {}
 
@@ -3055,3 +3315,9 @@ snapshots:
   yallist@4.0.0: {}
 
   zimmerframe@1.1.4: {}
+
+  zustand@5.0.0(@types/react@19.1.16)(react@19.1.1)(use-sync-external-store@1.4.0(react@19.1.1)):
+    optionalDependencies:
+      '@types/react': 19.1.16
+      react: 19.1.1
+      use-sync-external-store: 1.4.0(react@19.1.1)

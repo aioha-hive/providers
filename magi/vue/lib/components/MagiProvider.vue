@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { provide, ref, onMounted, onUnmounted } from 'vue'
+import { provide, ref, onMounted, onUnmounted, watch } from 'vue'
 import { Magi, Wallet } from '@aioha/magi'
 import type { Aioha } from '@aioha/aioha'
 import { MagiCtx, MagiUserCtx, MagiWalletCtx } from '../composables/context.js'
-import type { EIP1193Provider } from '../../../types.js'
+import { useConnectorClient } from '@wagmi/vue'
 
 interface Props {
   magi: Magi
   aioha?: Aioha
-  eip1193?: EIP1193Provider
 }
 
 const props = defineProps<Props>()
@@ -27,9 +26,17 @@ const updateHive = () => {
   if (props.magi.getWallet() === Wallet.Hive) user.value = props.magi.getUser()
 }
 
-const updateEvm = () => {
-  if (props.magi.getWallet() === Wallet.Ethereum) user.value = props.magi.getUser()
-}
+// Wagmi integration
+const { data: walletClient } = useConnectorClient()
+
+watch(walletClient, (newClient) => {
+  if (!!newClient) {
+    props.magi.setViem(newClient as any)
+    props.magi.setWallet(Wallet.Ethereum)
+  } else {
+    props.magi.setWallet()
+  }
+})
 
 // Setup event listeners
 onMounted(() => {
@@ -39,9 +46,6 @@ onMounted(() => {
     props.aioha.on('disconnect', updateHive)
     props.aioha.on('account_changed', updateHive)
   }
-  if (props.eip1193) {
-    props.eip1193.on('accountsChanged', updateEvm)
-  }
 })
 
 onUnmounted(() => {
@@ -50,9 +54,6 @@ onUnmounted(() => {
     props.aioha.off('connect', updateHive)
     props.aioha.off('disconnect', updateHive)
     props.aioha.off('account_changed', updateHive)
-  }
-  if (props.eip1193) {
-    props.eip1193.removeListener('accountsChanged', updateEvm)
   }
 })
 
