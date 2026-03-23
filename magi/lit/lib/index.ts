@@ -1,9 +1,9 @@
-import { LitElement, html } from 'lit'
+import { LitElement, html, type PropertyValues } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
-import { createContext, provide } from '@lit/context'
-import type { Aioha } from '@aioha/aioha'
+import { createContext, consume, provide } from '@lit/context'
 import { type Magi, Wallet } from '@aioha/magi'
 import { type Config, watchConnection, getConnectorClient } from '@wagmi/core'
+import { UserCtx } from '@aioha/providers/lit'
 
 // Create the context
 export const MagiCtx = createContext<Magi>(Symbol('MagiContext'))
@@ -17,14 +17,14 @@ export class MagiProvider extends LitElement {
   magi!: Magi
 
   @property({ attribute: false })
-  aioha?: Aioha
-
-  @property({ attribute: false })
   wagmiConfig?: Config
 
-  // Persistent references that won't be cleared by Lit during component removal
+  @consume({ context: UserCtx, subscribe: true })
+  //@ts-ignore
+  private _aiohaUser?: string
+
+  // Persistent reference that won't be cleared by Lit during component removal
   private _magiRef?: Magi
-  private _aiohaRef?: Aioha
   private _unwatchConnection?: () => void
 
   @provide({ context: MagiUserCtx })
@@ -44,9 +44,8 @@ export class MagiProvider extends LitElement {
   connectedCallback() {
     super.connectedCallback()
 
-    // Store persistent references before any potential clearing
+    // Store persistent reference before any potential clearing
     this._magiRef = this.magi
-    this._aiohaRef = this.aioha
 
     // Initialize state
     this._user = this.magi.getUser()
@@ -54,11 +53,6 @@ export class MagiProvider extends LitElement {
 
     // Set up event listeners
     this.magi.on('wallet_changed', this._update)
-    if (this.aioha) {
-      this.aioha.on('connect', this._updateHive)
-      this.aioha.on('disconnect', this._updateHive)
-      this.aioha.on('account_changed', this._updateHive)
-    }
     if (this.wagmiConfig) {
       this._unwatchConnection = watchConnection(this.wagmiConfig, {
         onChange: async (connection) => {
@@ -82,27 +76,26 @@ export class MagiProvider extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback()
 
-    // Clean up event listeners using persistent references
+    // Clean up event listeners using persistent reference
     if (this._magiRef) {
       this._magiRef.off('wallet_changed', this._update)
     }
-    if (this._aiohaRef) {
-      this._aiohaRef.off('connect', this._updateHive)
-      this._aiohaRef.off('disconnect', this._updateHive)
-      this._aiohaRef.off('account_changed', this._updateHive)
-    }
     this._unwatchConnection?.()
+  }
+
+  protected willUpdate(changedProperties: PropertyValues) {
+    if (changedProperties.has('_aiohaUser')) {
+      const magiInstance = this._magiRef || this.magi
+      if (magiInstance.getWallet() === Wallet.Hive) {
+        this._user = magiInstance.getUser()
+      }
+    }
   }
 
   private _update = () => {
     const magiInstance = this._magiRef || this.magi
     this._user = magiInstance.getUser()
     this._wallet = magiInstance.getWallet()
-  }
-
-  private _updateHive = () => {
-    const magiInstance = this._magiRef || this.magi
-    if (magiInstance.getWallet() === Wallet.Hive) this._user = magiInstance.getUser()
   }
 
   render() {

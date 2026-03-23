@@ -10,6 +10,7 @@
     "outDir": "../../dist/magi/react",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "rootDir": "lib",
     "strict": true,
     "skipLibCheck": true
   },
