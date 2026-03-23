@@ -41,6 +41,9 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^6.0.1
         version: 6.0.1(vite@7.1.7(@types/node@24.6.1))(vue@3.5.22(typescript@5.9.3))
+      '@wagmi/core':
+        specifier: ^3.4.0
+        version: 3.4.0(@tanstack/query-core@5.95.0)(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3))
       '@wagmi/vue':
         specifier: ^0.5.0
         version: 0.5.0(@tanstack/query-core@5.95.0)(@tanstack/vue-query@5.95.0(vue@3.5.22(typescript@5.9.3)))(@types/react@19.1.16)(ox@0.14.7(typescript@5.9.3))(react@19.1.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.1.1))(viem@2.47.6(typescript@5.9.3))(vue@3.5.22(typescript@5.9.3))

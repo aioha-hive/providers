@@ -2,8 +2,8 @@ import { LitElement, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { createContext, provide } from '@lit/context'
 import type { Aioha } from '@aioha/aioha'
-import type { Magi, Wallet } from '@aioha/magi'
-import type { EIP1193Provider } from '../../types.js'
+import { type Magi, Wallet } from '@aioha/magi'
+import { type Config, watchConnection, getConnectorClient } from '@wagmi/core'
 
 // Create the context
 export const MagiCtx = createContext<Magi>(Symbol('MagiContext'))
@@ -20,12 +20,12 @@ export class MagiProvider extends LitElement {
   aioha?: Aioha
 
   @property({ attribute: false })
-  eip1193?: EIP1193Provider
+  wagmiConfig?: Config
 
   // Persistent references that won't be cleared by Lit during component removal
   private _magiRef?: Magi
   private _aiohaRef?: Aioha
-  private _eip1193Ref?: EIP1193Provider
+  private _unwatchConnection?: () => void
 
   @provide({ context: MagiUserCtx })
   @state()
@@ -47,7 +47,6 @@ export class MagiProvider extends LitElement {
     // Store persistent references before any potential clearing
     this._magiRef = this.magi
     this._aiohaRef = this.aioha
-    this._eip1193Ref = this.eip1193
 
     // Initialize state
     this._user = this.magi.getUser()
@@ -60,8 +59,23 @@ export class MagiProvider extends LitElement {
       this.aioha.on('disconnect', this._updateHive)
       this.aioha.on('account_changed', this._updateHive)
     }
-    if (this.eip1193) {
-      this.eip1193.on('accountsChanged', this._updateEvm)
+    if (this.wagmiConfig) {
+      this._unwatchConnection = watchConnection(this.wagmiConfig, {
+        onChange: async (connection) => {
+          const magiInstance = this._magiRef || this.magi
+          if (connection.status === 'connected') {
+            try {
+              const client = await getConnectorClient(this.wagmiConfig!)
+              magiInstance.setViem(client as any)
+              magiInstance.setWallet(Wallet.Ethereum)
+              this._update()
+            } catch {}
+          } else if (connection.status === 'disconnected') {
+            magiInstance.setWallet()
+            this._update()
+          }
+        }
+      })
     }
   }
 
@@ -77,9 +91,7 @@ export class MagiProvider extends LitElement {
       this._aiohaRef.off('disconnect', this._updateHive)
       this._aiohaRef.off('account_changed', this._updateHive)
     }
-    if (this._eip1193Ref) {
-      this._eip1193Ref.removeListener('accountsChanged', this._updateEvm)
-    }
+    this._unwatchConnection?.()
   }
 
   private _update = () => {
@@ -90,12 +102,7 @@ export class MagiProvider extends LitElement {
 
   private _updateHive = () => {
     const magiInstance = this._magiRef || this.magi
-    if (magiInstance.getWallet() === 'hive') this._user = magiInstance.getUser()
-  }
-
-  private _updateEvm = () => {
-    const magiInstance = this._magiRef || this.magi
-    if (magiInstance.getWallet() === 'evm') this._user = magiInstance.getUser()
+    if (magiInstance.getWallet() === Wallet.Hive) this._user = magiInstance.getUser()
   }
 
   render() {

@@ -3,9 +3,10 @@
   import type { Aioha } from '@aioha/aioha'
   import type { Magi } from '@aioha/magi'
   import { Wallet } from '@aioha/magi'
-  import { MagiCtxKey, type EIP1193Provider } from '../context.js'
+  import { type Config, watchConnection, getConnectorClient } from '@wagmi/core'
+  import { MagiCtxKey } from '../context.js'
 
-  const { magi, aioha, eip1193, children }: { magi: Magi; aioha?: Aioha; eip1193?: EIP1193Provider; children: any } = $props()
+  const { magi, aioha, wagmiConfig, children }: { magi: Magi; aioha?: Aioha; wagmiConfig?: Config; children: any } = $props()
 
   let ctx = $state({
     magi: magi,
@@ -22,10 +23,6 @@
     if (magi.getWallet() === Wallet.Hive) ctx.user = magi.getUser()
   }
 
-  const updateEvm = () => {
-    if (magi.getWallet() === Wallet.Ethereum) ctx.user = magi.getUser()
-  }
-
   onMount(() => {
     magi.on('wallet_changed', update)
     if (aioha) {
@@ -33,8 +30,24 @@
       aioha.on('disconnect', updateHive)
       aioha.on('account_changed', updateHive)
     }
-    if (eip1193) {
-      eip1193.on('accountsChanged', updateEvm)
+
+    let unwatchConnection: (() => void) | undefined
+    if (wagmiConfig) {
+      unwatchConnection = watchConnection(wagmiConfig, {
+        onChange: async (connection) => {
+          if (connection.status === 'connected') {
+            try {
+              const client = await getConnectorClient(wagmiConfig)
+              magi.setViem(client as any)
+              magi.setWallet(Wallet.Ethereum)
+              update()
+            } catch {}
+          } else if (connection.status === 'disconnected') {
+            magi.setWallet()
+            update()
+          }
+        }
+      })
     }
 
     return () => {
@@ -44,9 +57,7 @@
         aioha.off('disconnect', updateHive)
         aioha.off('account_changed', updateHive)
       }
-      if (eip1193) {
-        eip1193.removeListener('accountsChanged', updateEvm)
-      }
+      unwatchConnection?.()
     }
   })
 
