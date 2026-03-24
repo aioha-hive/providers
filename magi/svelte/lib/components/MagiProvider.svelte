@@ -22,10 +22,12 @@
   }
 
   $effect(() => {
-    if (aiohaCtx) {
-      const _ = aiohaCtx.user
-      if (magi.getWallet() === Wallet.Hive) ctx.user = magi.getUser()
+    if (aiohaCtx?.user) {
+      magi.setWallet(Wallet.Hive)
+    } else {
+      magi.setWallet()
     }
+    update()
   })
 
   onMount(() => {

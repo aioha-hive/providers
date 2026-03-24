@@ -2,7 +2,8 @@
 import { provide, ref, inject, onMounted, onUnmounted, watch } from 'vue'
 import { Magi, Wallet } from '@aioha/magi'
 import { MagiCtx, MagiUserCtx, MagiWalletCtx } from '../composables/context.js'
-import { useConnectorClient } from '@wagmi/vue'
+import { useConfig } from '@wagmi/vue'
+import { watchConnection, getConnectorClient } from '@wagmi/core'
 import { UserCtx } from '@aioha/providers/vue'
 
 interface Props {
@@ -24,30 +25,43 @@ const update = () => {
 // Consume Aioha user context (optional, undefined if no AiohaProvider ancestor)
 const aiohaUser = inject(UserCtx, undefined)
 if (aiohaUser) {
-  watch(aiohaUser, () => {
-    if (props.magi.getWallet() === Wallet.Hive) user.value = props.magi.getUser()
+  watch(aiohaUser, (newUser) => {
+    if (newUser) {
+      props.magi.setWallet(Wallet.Hive)
+    } else {
+      props.magi.setWallet()
+    }
+    update()
   })
 }
 
 // Wagmi integration
-const { data: walletClient } = useConnectorClient()
-
-watch(walletClient, (newClient) => {
-  if (!!newClient) {
-    props.magi.setViem(newClient as any)
-    props.magi.setWallet(Wallet.Ethereum)
-  } else {
-    props.magi.setWallet()
-  }
-})
+const config = useConfig()
+let unwatchConnection: (() => void) | undefined
 
 // Setup event listeners
 onMounted(() => {
   props.magi.on('wallet_changed', update)
+  unwatchConnection = watchConnection(config, {
+    onChange: async (connection) => {
+      if (connection.status === 'connected') {
+        try {
+          const client = await getConnectorClient(config)
+          props.magi.setViem(client as any)
+          props.magi.setWallet(Wallet.Ethereum)
+          update()
+        } catch {}
+      } else if (connection.status === 'disconnected') {
+        props.magi.setWallet()
+        update()
+      }
+    }
+  })
 })
 
 onUnmounted(() => {
   props.magi.off('wallet_changed', update)
+  unwatchConnection?.()
 })
 
 // Provide the context

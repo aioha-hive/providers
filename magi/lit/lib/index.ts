@@ -20,6 +20,7 @@ export class MagiProvider extends LitElement {
   wagmiConfig?: Config
 
   @consume({ context: UserCtx, subscribe: true })
+  @state()
   //@ts-ignore
   private _aiohaUser?: string
 
@@ -86,9 +87,12 @@ export class MagiProvider extends LitElement {
   protected willUpdate(changedProperties: PropertyValues) {
     if (changedProperties.has('_aiohaUser')) {
       const magiInstance = this._magiRef || this.magi
-      if (magiInstance.getWallet() === Wallet.Hive) {
-        this._user = magiInstance.getUser()
+      if (this._aiohaUser) {
+        magiInstance.setWallet(Wallet.Hive)
+      } else {
+        magiInstance.setWallet()
       }
+      this._update()
     }
   }
 

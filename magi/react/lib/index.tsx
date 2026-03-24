@@ -44,9 +44,12 @@ export const MagiProvider = ({ magi, children }: { magi: Magi; children: ReactNo
     }
   }, [])
   useEffect(() => {
-    if (aiohaCtx && magi.getWallet() === Wallet.Hive) {
-      setUser(magi.getUser())
+    if (aiohaCtx?.user) {
+      magi.setWallet(Wallet.Hive)
+    } else {
+      magi.setWallet()
     }
+    update()
   }, [aiohaCtx?.user])
   return (
     <MagiContext.Provider
