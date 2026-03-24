@@ -17,7 +17,7 @@ const WagmiEthSync = ({ magi, onUpdate }: { magi: Magi; onUpdate: () => void }) 
 
   useEffect(() => {
     if (!!walletClient) {
-      magi.setViem(walletClient as any)
+      magi.setViem(walletClient)
       magi.setWallet(Wallet.Ethereum)
       onUpdate()
     } else {
