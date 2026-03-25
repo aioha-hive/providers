@@ -12,25 +12,9 @@ export const MagiContext = createContext<
   | undefined
 >(undefined)
 
-const WagmiEthSync = ({ magi, onUpdate }: { magi: Magi; onUpdate: () => void }) => {
-  const { data: walletClient } = useConnectorClient()
-
-  useEffect(() => {
-    if (!!walletClient) {
-      magi.setViem(walletClient)
-      magi.setWallet(Wallet.Ethereum)
-      onUpdate()
-    } else {
-      magi.setWallet()
-      onUpdate()
-    }
-  }, [walletClient])
-
-  return null
-}
-
 export const MagiProvider = ({ magi, children }: { magi: Magi; children: ReactNode }) => {
   const aiohaCtx = useContext(AiohaContext)
+  const { data: walletClient } = useConnectorClient()
   const [user, setUser] = useState<string | undefined>(magi.getUser())
   const [wallet, setWallet] = useState<Wallet | undefined>(magi.getWallet())
   const update = () => {
@@ -43,6 +27,8 @@ export const MagiProvider = ({ magi, children }: { magi: Magi; children: ReactNo
       magi.off('wallet_changed', update)
     }
   }, [])
+
+  // Hive
   useEffect(() => {
     if (aiohaCtx?.user) {
       magi.setWallet(Wallet.Hive)
@@ -51,6 +37,19 @@ export const MagiProvider = ({ magi, children }: { magi: Magi; children: ReactNo
     }
     update()
   }, [aiohaCtx?.user])
+
+  // Ethereum
+  useEffect(() => {
+    if (!!walletClient) {
+      magi.setViem(walletClient)
+      magi.setWallet(Wallet.Ethereum)
+      update()
+    } else {
+      magi.setWallet()
+      update()
+    }
+  }, [walletClient])
+
   return (
     <MagiContext.Provider
       value={{
@@ -59,7 +58,6 @@ export const MagiProvider = ({ magi, children }: { magi: Magi; children: ReactNo
         wallet
       }}
     >
-      <WagmiEthSync magi={magi} onUpdate={update} />
       {children}
     </MagiContext.Provider>
   )
