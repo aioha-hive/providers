@@ -1,6 +1,6 @@
 # Aioha Framework Providers
 
-Provides Aioha reactive states for various JavaScript frameworks for the ease of integration.
+Provides Aioha and Magi JS reactive states for various JavaScript frameworks for the ease of integration.
 
 ## Supported Frameworks
 
