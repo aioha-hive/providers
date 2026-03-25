@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { provide, ref, inject, onMounted, onUnmounted, watch } from 'vue'
+import { provide, ref, computed, inject, onMounted, onUnmounted, watch } from 'vue'
 import { Magi, Wallet } from '@aioha/magi'
 import { MagiCtx, MagiUserCtx, MagiWalletCtx } from '../composables/context.js'
-import { useConfig } from '@wagmi/vue'
-import { watchConnection, getConnectorClient } from '@wagmi/core'
+import { useConnectorClient, useConnections } from '@wagmi/vue'
 import { UserCtx } from '@aioha/providers/vue'
 
 interface Props {
@@ -35,33 +34,30 @@ if (aiohaUser) {
   })
 }
 
-// Wagmi integration
-const config = useConfig()
-let unwatchConnection: (() => void) | undefined
+// Wagmi integration — useConnectorClient has a bug in wagmi/vue@0.5.0
+// where account changes don't invalidate the query, so we also watch
+// the connection address and refetch manually.
+const { data: walletClient, refetch } = useConnectorClient()
+const connections = useConnections()
+const currentAddress = computed(() => connections.value[0]?.accounts[0])
+watch(currentAddress, () => refetch())
+watch(walletClient, (client) => {
+  if (client) {
+    props.magi.setViem(client)
+    props.magi.setWallet(Wallet.Ethereum)
+  } else {
+    props.magi.setWallet()
+  }
+  update()
+})
 
 // Setup event listeners
 onMounted(() => {
   props.magi.on('wallet_changed', update)
-  unwatchConnection = watchConnection(config, {
-    onChange: async (connection) => {
-      if (connection.status === 'connected') {
-        try {
-          const client = await getConnectorClient(config)
-          props.magi.setViem(client as any)
-          props.magi.setWallet(Wallet.Ethereum)
-          update()
-        } catch {}
-      } else if (connection.status === 'disconnected') {
-        props.magi.setWallet()
-        update()
-      }
-    }
-  })
 })
 
 onUnmounted(() => {
   props.magi.off('wallet_changed', update)
-  unwatchConnection?.()
 })
 
 // Provide the context
