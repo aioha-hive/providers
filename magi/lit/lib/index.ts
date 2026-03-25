@@ -5,10 +5,10 @@ import { type Magi, Wallet } from '@aioha/magi'
 import { type Config, watchConnection, getConnectorClient } from '@wagmi/core'
 import { UserCtx } from '@aioha/providers/lit'
 
-// Create the context
-export const MagiCtx = createContext<Magi>(Symbol('MagiContext'))
-export const MagiUserCtx = createContext<string | undefined>(Symbol('MagiUser'))
-export const MagiWalletCtx = createContext<Wallet | undefined>(Symbol('MagiWallet'))
+// Create the context (Symbol.for ensures the same key across duplicate package copies)
+export const MagiCtx = createContext<Magi>(Symbol.for('MagiContext'))
+export const MagiUserCtx = createContext<string | undefined>(Symbol.for('MagiUser'))
+export const MagiWalletCtx = createContext<Wallet | undefined>(Symbol.for('MagiWallet'))
 
 @customElement('magi-provider')
 export class MagiProvider extends LitElement {

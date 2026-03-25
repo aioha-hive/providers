@@ -3,11 +3,11 @@ import { customElement, property, state } from 'lit/decorators.js'
 import { createContext, provide } from '@lit/context'
 import type { Aioha, Providers, PersistentLoginProvs } from '@aioha/aioha'
 
-// Create the context
-export const AiohaCtx = createContext<Aioha>(Symbol('AiohaContext'))
-export const UserCtx = createContext<string | undefined>(Symbol('AiohaUser'))
-export const ProviderCtx = createContext<Providers | undefined>(Symbol('AiohaProvider'))
-export const OtherUsersCtx = createContext<PersistentLoginProvs>(Symbol('AiohaOtherUsers'))
+// Create the context (Symbol.for ensures the same key across duplicate package copies)
+export const AiohaCtx = createContext<Aioha>(Symbol.for('AiohaContext'))
+export const UserCtx = createContext<string | undefined>(Symbol.for('AiohaUser'))
+export const ProviderCtx = createContext<Providers | undefined>(Symbol.for('AiohaProvider'))
+export const OtherUsersCtx = createContext<PersistentLoginProvs>(Symbol.for('AiohaOtherUsers'))
 
 @customElement('aioha-provider')
 export class AiohaProvider extends LitElement {
