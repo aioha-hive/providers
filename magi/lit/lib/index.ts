@@ -61,11 +61,11 @@ export class MagiProvider extends LitElement {
           if (connection.status === 'connected') {
             try {
               const client = await getConnectorClient(this.wagmiConfig!)
-              magiInstance.setViem(client as any)
+              magiInstance.setViem(client)
               magiInstance.setWallet(Wallet.Ethereum)
               this._update()
             } catch {}
-          } else if (connection.status === 'disconnected') {
+          } else if (connection.status === 'disconnected' && magiInstance.getWallet() === Wallet.Ethereum) {
             magiInstance.setWallet()
             this._update()
           }
@@ -89,7 +89,7 @@ export class MagiProvider extends LitElement {
       const magiInstance = this._magiRef || this.magi
       if (this._aiohaUser) {
         magiInstance.setWallet(Wallet.Hive)
-      } else {
+      } else if (magiInstance.getWallet() === Wallet.Hive) {
         magiInstance.setWallet()
       }
       this._update()

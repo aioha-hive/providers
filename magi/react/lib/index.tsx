@@ -32,7 +32,7 @@ export const MagiProvider = ({ magi, children }: { magi: Magi; children: ReactNo
   useEffect(() => {
     if (aiohaCtx?.user) {
       magi.setWallet(Wallet.Hive)
-    } else {
+    } else if (magi.getWallet() === Wallet.Hive) {
       magi.setWallet()
     }
     update()
@@ -43,11 +43,10 @@ export const MagiProvider = ({ magi, children }: { magi: Magi; children: ReactNo
     if (!!walletClient) {
       magi.setViem(walletClient)
       magi.setWallet(Wallet.Ethereum)
-      update()
-    } else {
+    } else if (magi.getWallet() === Wallet.Ethereum) {
       magi.setWallet()
-      update()
     }
+    update()
   }, [walletClient])
 
   return (

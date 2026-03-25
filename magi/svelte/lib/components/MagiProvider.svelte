@@ -24,7 +24,7 @@
   $effect(() => {
     if (aiohaCtx?.user) {
       magi.setWallet(Wallet.Hive)
-    } else {
+    } else if (magi.getWallet() === Wallet.Hive) {
       magi.setWallet()
     }
     update()
@@ -40,11 +40,11 @@
           if (connection.status === 'connected') {
             try {
               const client = await getConnectorClient(wagmiConfig)
-              magi.setViem(client as any)
+              magi.setViem(client)
               magi.setWallet(Wallet.Ethereum)
               update()
             } catch {}
-          } else if (connection.status === 'disconnected') {
+          } else if (connection.status === 'disconnected' && magi.getWallet() === Wallet.Ethereum) {
             magi.setWallet()
             update()
           }

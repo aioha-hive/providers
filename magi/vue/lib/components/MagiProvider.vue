@@ -27,7 +27,7 @@ if (aiohaUser) {
   watch(aiohaUser, (newUser) => {
     if (newUser) {
       props.magi.setWallet(Wallet.Hive)
-    } else {
+    } else if (props.magi.getWallet() === Wallet.Hive) {
       props.magi.setWallet()
     }
     update()
@@ -45,7 +45,7 @@ watch(walletClient, (client) => {
   if (client) {
     props.magi.setViem(client)
     props.magi.setWallet(Wallet.Ethereum)
-  } else {
+  } else if (props.magi.getWallet() === Wallet.Ethereum) {
     props.magi.setWallet()
   }
   update()
