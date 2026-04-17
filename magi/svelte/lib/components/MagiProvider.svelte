@@ -1,12 +1,17 @@
 <script lang="ts">
   import { getContext, onMount, setContext } from 'svelte'
-  import type { Magi } from '@aioha/magi'
+  import type { Magi, BtcClient } from '@aioha/magi'
   import { Wallet } from '@aioha/magi'
   import { type Config, watchConnection, getConnectorClient } from '@wagmi/core'
   import { MagiCtxKey } from '../context.js'
   import { AiohaCtxKey, type AiohaContext } from '@aioha/providers/svelte'
 
-  const { magi, wagmiConfig, children }: { magi: Magi; wagmiConfig?: Config; children: any } = $props()
+  const {
+    magi,
+    wagmiConfig,
+    btcClient,
+    children
+  }: { magi: Magi; wagmiConfig?: Config; btcClient?: BtcClient; children: any } = $props()
 
   const aiohaCtx = getContext<AiohaContext | undefined>(AiohaCtxKey)
 
@@ -25,6 +30,16 @@
     if (aiohaCtx?.user) {
       magi.setWallet(Wallet.Hive)
     } else if (magi.getWallet() === Wallet.Hive) {
+      magi.setWallet()
+    }
+    update()
+  })
+
+  $effect(() => {
+    if (btcClient) {
+      magi.setBitcoin(btcClient)
+      magi.setWallet(Wallet.Bitcoin)
+    } else if (magi.getWallet() === Wallet.Bitcoin) {
       magi.setWallet()
     }
     update()

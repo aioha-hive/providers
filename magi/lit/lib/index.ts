@@ -1,7 +1,7 @@
 import { LitElement, html, type PropertyValues } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { createContext, consume, provide } from '@lit/context'
-import { type Magi, Wallet } from '@aioha/magi'
+import { type Magi, type BtcClient, Wallet } from '@aioha/magi'
 import { type Config, watchConnection, getConnectorClient } from '@wagmi/core'
 import { UserCtx } from '@aioha/providers/lit'
 
@@ -18,6 +18,9 @@ export class MagiProvider extends LitElement {
 
   @property({ attribute: false })
   wagmiConfig?: Config
+
+  @property({ attribute: false })
+  btcClient?: BtcClient
 
   @consume({ context: UserCtx, subscribe: true })
   @state()
@@ -90,6 +93,16 @@ export class MagiProvider extends LitElement {
       if (this._aiohaUser) {
         magiInstance.setWallet(Wallet.Hive)
       } else if (magiInstance.getWallet() === Wallet.Hive) {
+        magiInstance.setWallet()
+      }
+      this._update()
+    }
+    if (changedProperties.has('btcClient')) {
+      const magiInstance = this._magiRef || this.magi
+      if (this.btcClient) {
+        magiInstance.setBitcoin(this.btcClient)
+        magiInstance.setWallet(Wallet.Bitcoin)
+      } else if (magiInstance.getWallet() === Wallet.Bitcoin) {
         magiInstance.setWallet()
       }
       this._update()

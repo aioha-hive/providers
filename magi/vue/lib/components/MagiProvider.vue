@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { provide, ref, computed, inject, onMounted, onUnmounted, watch } from 'vue'
-import { Magi, Wallet } from '@aioha/magi'
+import { Magi, Wallet, BtcClient } from '@aioha/magi'
 import { MagiCtx, MagiUserCtx, MagiWalletCtx } from '../composables/context.js'
 import { useConnectorClient, useConnections } from '@wagmi/vue'
 import { UserCtx } from '@aioha/providers/vue'
 
 interface Props {
   magi: Magi
+  btcClient?: BtcClient
 }
 
 const props = defineProps<Props>()
@@ -50,6 +51,20 @@ watch(walletClient, (client) => {
   }
   update()
 })
+
+// Bitcoin
+watch(
+  () => props.btcClient,
+  (client) => {
+    if (client) {
+      props.magi.setBitcoin(client)
+      props.magi.setWallet(Wallet.Bitcoin)
+    } else if (props.magi.getWallet() === Wallet.Bitcoin) {
+      props.magi.setWallet()
+    }
+    update()
+  }
+)
 
 // Setup event listeners
 onMounted(() => {

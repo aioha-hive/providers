@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
-import { Magi, Wallet } from '@aioha/magi'
+import { Magi, Wallet, BtcClient } from '@aioha/magi'
 import { useConnectorClient } from 'wagmi'
 import { AiohaContext } from '@aioha/providers/react'
 
@@ -12,7 +12,7 @@ export const MagiContext = createContext<
   | undefined
 >(undefined)
 
-export const MagiProvider = ({ magi, children }: { magi: Magi; children: ReactNode }) => {
+export const MagiProvider = ({ magi, btcClient, children }: { magi: Magi; btcClient?: BtcClient; children: ReactNode }) => {
   const aiohaCtx = useContext(AiohaContext)
   const { data: walletClient } = useConnectorClient()
   const [user, setUser] = useState<string | undefined>(magi.getUser())
@@ -48,6 +48,17 @@ export const MagiProvider = ({ magi, children }: { magi: Magi; children: ReactNo
     }
     update()
   }, [walletClient])
+
+  // Bitcoin
+  useEffect(() => {
+    if (btcClient) {
+      magi.setBitcoin(btcClient)
+      magi.setWallet(Wallet.Bitcoin)
+    } else if (magi.getWallet() === Wallet.Bitcoin) {
+      magi.setWallet()
+    }
+    update()
+  }, [btcClient])
 
   return (
     <MagiContext.Provider
